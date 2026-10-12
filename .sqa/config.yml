@@ -1,0 +1,56 @@
+config:
+  credentials: []
+  project_repos:
+    github.com/EOSC-synergy/sqaaas-tooling:
+      branch: fix/updatego
+      repo: https://github.com/EOSC-synergy/sqaaas-tooling
+    github.com/cessda/cessda.documentation.theme:
+      branch: master
+      repo: https://github.com/cessda/cessda.documentation.theme
+environment:
+  JPL_DOCKERFORCEBUILD: enabled
+  JPL_KEEPGOING: enabled
+sqa_criteria:
+  QC.Acc:
+    repos:
+      github.com/cessda/cessda.documentation.theme git:
+        commands:
+        - /usr/bin/env sh .sqa/script.fog_clever_ferret.sh
+        container: qc.acc_rust_grumpy_eagle
+  QC.Doc:
+    repos:
+      github.com/cessda/cessda.documentation.theme find_doc_files.py:
+        commands:
+        - /usr/bin/env sh .sqa/script.chili_delighted_condor.sh
+        container: qc.doc_peony_zany_squid
+      github.com/cessda/cessda.documentation.theme git:
+        commands:
+        - /usr/bin/env sh .sqa/script.thistle_vigilant_hydra.sh
+        container: qc.doc_walnut_rugged_wasp
+      github.com/cessda/cessda.documentation.theme markdownlint:
+        commands:
+        - /usr/bin/env sh .sqa/script.banana_respectful_octopus.sh
+        container: qc.doc_lime_bold_okapi
+  QC.Lic:
+    repos:
+      github.com/cessda/cessda.documentation.theme licensee:
+        commands:
+        - /usr/bin/env sh .sqa/script.pink_stubborn_marmoset.sh
+        container: qc.lic_echelon_respectful_wombat
+  QC.Sty:
+    repos:
+      github.com/cessda/cessda.documentation.theme jsonlint:
+        commands:
+        - /usr/bin/env sh .sqa/script.rosewater_forgiving_gorilla.sh
+        container: qc.sty_echelon_perky_parrot
+      github.com/cessda/cessda.documentation.theme rubocop:
+        commands:
+        - /usr/bin/env sh .sqa/script.yellow_independent_warthog.sh
+        container: qc.sty_taupe_agile_dragon
+  QC.Ver:
+    repos:
+      github.com/cessda/cessda.documentation.theme get_git_tags.py:
+        commands:
+        - /usr/bin/env sh .sqa/script.red_independent_gnu.sh
+        container: qc.ver_turmeric_brave_quokka
+timeout: 5400
